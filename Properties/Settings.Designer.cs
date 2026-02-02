@@ -25,7 +25,7 @@ namespace W2SZ_Flea_Log.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Test")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Log {
             get {
                 return ((string)(this["Log"]));

@@ -1,3 +1,6 @@
+using CsvHelper;
+using System.Globalization;
+
 namespace W2SZ_Flea_Log
 {
     public partial class Form1 : Form
@@ -19,9 +22,23 @@ namespace W2SZ_Flea_Log
 
         private void Submit_Click(object sender, EventArgs e)
         {
+            var submission = new Submission
+            {
+                RIN = ID.Text
+            };
+            using (var stream = new FileStream(Properties.Settings.Default.Log, FileMode.Append))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecord(submission);
+                csv.NextRecord();
+            }
+            // Clear all input fields after submission
+            ID.Text = string.Empty;
 
+            // Submission message
+            MessageBox.Show("Submission successful!");
         }
-
         private void RIN_Leave(object sender, EventArgs e)
         {
             int start = ID.Text.IndexOf('=') + 1;
@@ -60,7 +77,12 @@ namespace W2SZ_Flea_Log
             {
                 try
                 {
-                    System.IO.File.WriteAllText(logData.FileName, "RIN");
+                    using (var writer = new StreamWriter(logData.FileName))
+                    using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                    {
+                        csv.WriteHeader<Submission>();
+                        csv.NextRecord();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -81,7 +103,10 @@ namespace W2SZ_Flea_Log
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            if (File.Exists(Properties.Settings.Default.Log))
+            {
+                FileLocation.Text = "Log file location: " + Properties.Settings.Default.Log;
+            }
         }
 
         private void Import_Click(object sender, EventArgs e)
