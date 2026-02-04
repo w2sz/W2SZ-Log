@@ -2,9 +2,15 @@
   <Configurations>
     <BuildType Name="All" />
     <BuildType Name="Debug" />
+    <BuildType Name="DefaultBuild" />
     <BuildType Name="Release" />
   </Configurations>
+  <Project Path="../W2SZ Log Installer/W2SZ Log Installer.aiproj" Type="840c416c-b8f3-42bc-b0dd-f6bb14c9f8cb" Id="cc47e9a8-ccae-4fa5-b964-7aa4b6c61e01">
+    <BuildType Project="DefaultBuild" />
+    <Platform Project="?" />
+  </Project>
   <Project Path="W2SZ Log.csproj">
     <BuildType Solution="All|*" Project="Debug" />
+    <BuildType Solution="DefaultBuild|*" Project="Release" />
   </Project>
 </Solution>
